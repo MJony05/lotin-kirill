@@ -26,7 +26,7 @@ let lotin = new Map([
   ["Z", "З"],
   ["Ya", "Я"],
   ["Yu", "Ю"],
-  ["Sh", "Щ"],
+  ["Sh", "Ш"],
   ["Ch", "Ч"],
   ["a", "а"],
   ["b", "б"],
@@ -57,7 +57,9 @@ let lotin = new Map([
   ["ch", "ч"],
   ["ya", "я"],
   ["yu", "ю"],
-  [" ", " "],
+  ["o'", "ў"],
+  ["O'", "Ў"],
+  [(" ", " ")],
   [".", "."],
   [",", ","],
   ["-", "-"],
@@ -79,7 +81,6 @@ let kirill = new Map([
   ["Е", "E"],
   ["Ф", "F"],
   ["Г", "G"],
-  ["Х", "H"],
   ["И", "I"],
   ["Ж", "J"],
   ["К", "K"],
@@ -95,6 +96,9 @@ let kirill = new Map([
   ["У", "U"],
   ["В", "V"],
   ["Х", "X"],
+  ["ў", "o'"],
+  ["Ў", "O'"],
+  ["Ҳ", "H"],
   ["Й", "Y"],
   ["Я", "Ya"],
   ["Ю", "Yu"],
@@ -108,8 +112,9 @@ let kirill = new Map([
   ["д", "d"],
   ["е", "e"],
   ["ф", "f"],
+  ["ҳ", "h"],
   ["г", "g"],
-  ["х", "h"],
+
   ["и", "i"],
   ["я", "ya"],
 
@@ -120,7 +125,7 @@ let kirill = new Map([
   ["н", "n"],
   ["о", "o"],
   ["п", "p"],
-  ["к", "q"],
+  ["қ", "q"],
   ["p", "r"],
   ["с", "s"],
   ["т", "t"],
@@ -157,8 +162,20 @@ document.querySelector(".lotin-input").addEventListener("input", function () {
       arr[i] = "sh";
       arr[i + 1] = "";
     }
+    if (arr[i] == "S" && arr[i + 1] == "h") {
+      arr[i] = "Sh";
+      arr[i + 1] = "";
+    }
     if (arr[i] == "c" && arr[i + 1] == "h") {
       arr[i] = "ch";
+      arr[i + 1] = "";
+    }
+    if (arr[i] == "o" && arr[i + 1] == "'") {
+      arr[i] = "o'";
+      arr[i + 1] = "";
+    }
+    if (arr[i] == "O" && arr[i + 1] == "'") {
+      arr[i] = "O'";
       arr[i + 1] = "";
     }
     if (arr[i] == "y" && arr[i + 1] == "a") {
@@ -190,3 +207,23 @@ document.querySelector(".kirill-area").addEventListener("input", function () {
   }
   document.querySelector(".lotin-area").value = lotinArea;
 });
+
+let options = {
+  day: "numeric",
+  month: "long",
+  weekday: "long",
+  year: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric",
+  milsecond: "numeric",
+};
+let date = new Date();
+let day = new Intl.DateTimeFormat("en-US", options).format(date);
+console.log(day);
+document.querySelector(".today").textContent = day;
+setInterval(() => {
+  date = new Date();
+  day = new Intl.DateTimeFormat("en-US", options).format(date);
+  document.querySelector(".today").textContent = day;
+}, 100);
